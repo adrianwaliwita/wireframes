@@ -712,7 +712,7 @@
 
         .info-visual {
             background: var(--color-canvas-subtle);
-            border: 1px solid var(--color-border-default);
+            border: 1px solid rgba(0, 217, 255, 0.3);
             border-radius: 12px;
             padding: 48px;
             min-height: 400px;
@@ -723,6 +723,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 2px 20px rgba(0, 217, 255, 0.2);
         }
 
         .info-visual::before {
@@ -738,9 +739,9 @@
         }
 
         .info-visual:hover {
-            border-color: rgba(0, 217, 255, 0.3);
+            border-color: rgba(0, 217, 255, 0.5);
             transform: translateY(-4px);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 0 60px rgba(0, 217, 255, 0.1);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3), 0 0 60px rgba(0, 217, 255, 0.3);
         }
 
         .info-visual:hover::before {
@@ -796,55 +797,44 @@
         /* CTA */
         .cta {
             max-width: 1280px;
-            margin: 120px auto;
-            padding: 80px 32px;
+            margin: 160px auto 120px;
+            padding: 0 32px;
             text-align: center;
-            position: relative;
-            border: 1px solid rgba(0, 217, 255, 0.2);
-            border-radius: 16px;
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.03) 0%, rgba(0, 217, 255, 0.01) 50%, transparent 100%);
-            overflow: hidden;
-        }
-
-        .cta::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 217, 255, 0.08) 0%, transparent 50%);
-            pointer-events: none;
         }
 
         .cta-content {
             position: relative;
-            z-index: 1;
         }
 
         .cta h2 {
-            font-size: 56px;
-            font-weight: 700;
+            font-size: 64px;
+            font-weight: 600;
             line-height: 1.1;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
             letter-spacing: -0.03em;
-            background: linear-gradient(135deg, #e6edf3 0%, rgba(0, 217, 255, 0.8) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: var(--color-fg-default);
         }
 
         .cta p {
             font-size: 20px;
             color: var(--color-fg-muted);
-            margin-bottom: 40px;
-            max-width: 700px;
+            margin-bottom: 48px;
+            max-width: 650px;
             margin-left: auto;
             margin-right: auto;
+            line-height: 1.6;
         }
 
         .cta .hero-buttons {
-            margin-top: 32px;
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta .btn {
+            padding: 16px 32px;
+            font-size: 18px;
         }
 
         /* Footer */
@@ -981,7 +971,12 @@
             }
 
             .cta h2 {
-                font-size: 36px;
+                font-size: 40px;
+            }
+
+            .cta .btn {
+                padding: 14px 28px;
+                font-size: 16px;
             }
 
             .info-content h2 {
@@ -1330,11 +1325,11 @@
 
         <section id="get-started" class="cta">
             <div class="cta-content">
-                <h2>Ready to unify your<br>security operations?</h2>
-                <p>Join security teams at Fortune 500 companies and growing enterprises who trust RadSOC to protect what matters most</p>
+                <h2>Ready to transform your<br>security operations?</h2>
+                <p>Join Fortune 500 companies protecting what matters most with RadSOC's unified security platform</p>
                 <div class="hero-buttons">
                     <a href="#" class="btn btn-primary">Start free trial</a>
-                    <a href="#" class="btn btn-secondary">Talk to sales</a>
+                    <a href="#" class="btn btn-secondary">Schedule demo</a>
                 </div>
             </div>
         </section>
