@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en" data-color-mode="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RadSOC · Security Operations Platform for Physical Security Devices</title>
+    <meta name="description" content="Unified security operations center for physical security devices. Monitor, manage, and respond to threats across your entire security infrastructure.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --color-canvas-default: #0d1117;
+            --color-canvas-subtle: #161b22;
+            --color-border-default: #30363d;
+            --color-border-muted: #21262d;
+            --color-fg-default: #e6edf3;
+            --color-fg-muted: #7d8590;
+            --color-fg-subtle: #6e7681;
+            --color-accent-fg: #2f81f7;
+            --color-accent-emphasis: #1f6feb;
+            --color-success-fg: #3fb950;
+            --color-success-emphasis: #238636;
+            --color-danger-fg: #f85149;
+            --color-done-fg: #a371f7;
+            --color-sponsors-fg: #db61a2;
+            --color-neutral-emphasis-plus: #6e7681;
+        }
+
+        body {
+            font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+            background: var(--color-canvas-default);
+            color: var(--color-fg-default);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            font-size: 16px;
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(13, 17, 23, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--color-border-default);
+        }
+
+        .header-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--color-fg-default);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--color-fg-default);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--color-fg-muted);
+            transition: color 0.2s ease;
+        }
+
+        .btn-header {
+            padding: 5px 16px;
+            border-radius: 6px;
+            background: var(--color-fg-default);
+            color: var(--color-canvas-default);
+            font-weight: 600;
+            font-size: 14px;
+            border: 1px solid var(--color-border-default);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-header:hover {
+            background: var(--color-fg-muted);
+        }
+
+        /* Vertical Tabs Section */
+        .vertical-tabs-section {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 80px 32px;
+        }
+
+        .vertical-tabs-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 80px;
+        }
+
+        .vertical-tabs-wrapper {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        .vertical-tabs-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .vertical-tab-button {
+            padding: 12px 20px;
+            border: none;
+            background: none;
+            color: var(--color-fg-muted);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: left;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+            border-radius: 6px;
+        }
+
+        .vertical-tab-button:hover {
+            color: var(--color-fg-default);
+            background: rgba(110, 118, 129, 0.1);
+        }
+
+        .vertical-tab-button.active {
+            color: var(--color-fg-default);
+            border-left-color: var(--color-success-emphasis);
+            background: rgba(35, 134, 54, 0.1);
+        }
+
+        .vertical-tabs-content {
+            min-height: 600px;
+        }
+
+        .vertical-tab-panel {
+            display: none;
+        }
+
+        .vertical-tab-panel.active {
+            display: block;
+            animation: fadeInUp 0.4s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .river-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .river-item.reverse {
+            direction: rtl;
+        }
+
+        .river-item.reverse > * {
+            direction: ltr;
+        }
+
+        .river-content h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-success-fg);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        .river-content h2 {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .river-content p {
+            font-size: 18px;
+            color: var(--color-fg-muted);
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .river-visual {
+            background: var(--color-canvas-subtle);
+            border: 1px solid var(--color-border-default);
+            border-radius: 12px;
+            padding: 48px;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--color-fg-muted);
+            transition: all 0.3s ease;
+        }
+
+        .river-visual:hover {
+            border-color: var(--color-border-muted);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Hero */
+        .hero {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 128px 32px 80px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 800px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(35, 134, 54, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .hero h1 {
+            font-size: 80px;
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            margin-bottom: 24px;
+            background: linear-gradient(180deg, #e6edf3 0%, #7d8590 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 20px;
+            color: var(--color-fg-muted);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            line-height: 1.5;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background: var(--color-success-emphasis);
+            color: var(--color-fg-default);
+            box-shadow: 0 0 0 0 rgba(35, 134, 54, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: var(--color-success-fg);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(35, 134, 54, 0.3);
+        }
+
+        .btn-secondary {
+            border: 1px solid var(--color-neutral-emphasis-plus);
+            color: var(--color-fg-default);
+            background: transparent;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--color-fg-muted);
+            background: rgba(110, 118, 129, 0.1);
+            transform: translateY(-1px);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 48px 32px;
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--color-fg-default);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            color: var(--color-fg-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Features */
+        .features {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 80px 32px;
+        }
+
+        .section-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 64px;
+        }
+
+        .section-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--color-success-fg);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        .section-heading {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .section-description {
+            font-size: 20px;
+            color: var(--color-fg-muted);
+            line-height: 1.5;
+        }
+
+        .features-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .feature-row {
+            display: grid;
+            grid-template-columns: 64px 1fr;
+            gap: 24px;
+            padding: 40px 0;
+            border-bottom: 1px solid var(--color-border-default);
+            transition: all 0.2s ease;
+        }
+
+        .feature-row:hover {
+            transform: translateX(4px);
+        }
+
+        .feature-row:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon-simple {
+            font-size: 32px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 4px;
+        }
+
+        .feature-content-simple h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--color-fg-default);
+        }
+
+        .feature-content-simple p {
+            color: var(--color-fg-muted);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .feature-list {
+            list-style: none;
+        }
+
+        .feature-list li {
+            color: var(--color-fg-muted);
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+            font-size: 14px;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--color-success-fg);
+            font-weight: bold;
+        }
+
+        /* Breakout Section */
+        .breakout {
+            background: var(--color-canvas-subtle);
+            border-top: 1px solid var(--color-border-default);
+            border-bottom: 1px solid var(--color-border-default);
+            padding: 80px 32px;
+            margin: 80px 0;
+        }
+
+        .breakout-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .breakout-content h2 {
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .breakout-content p {
+            font-size: 18px;
+            color: var(--color-fg-muted);
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .breakout-image {
+            background: var(--color-canvas-default);
+            border: 1px solid var(--color-border-default);
+            border-radius: 6px;
+            padding: 32px;
+            text-align: center;
+            color: var(--color-fg-muted);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* CTA */
+        .cta {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 120px 32px;
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 48px;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .cta p {
+            font-size: 20px;
+            color: var(--color-fg-muted);
+            margin-bottom: 40px;
+        }
+
+        /* Footer */
+        .footer {
+            border-top: 1px solid var(--color-border-default);
+            padding: 40px 32px;
+            background: var(--color-canvas-subtle);
+        }
+
+        .footer-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-brand {
+            color: var(--color-fg-muted);
+        }
+
+        .footer-brand .logo {
+            margin-bottom: 16px;
+            color: var(--color-fg-default);
+        }
+
+        .footer-column h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--color-fg-default);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--color-accent-fg);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+            color: var(--color-success-fg);
+            transition: color 0.2s ease;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--color-border-default);
+            margin-top: 40px;
+            padding-top: 32px;
+            text-align: center;
+            color: var(--color-fg-subtle);
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 56px;
+            }
+
+            .breakout-container {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 80px 24px 48px;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .hero-description {
+                font-size: 18px;
+            }
+
+            .section-heading {
+                font-size: 32px;
+            }
+
+            .breakout-content h2 {
+                font-size: 32px;
+            }
+
+            .cta h2 {
+                font-size: 32px;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .feature-row {
+                grid-template-columns: 48px 1fr;
+                gap: 16px;
+                padding: 32px 0;
+            }
+
+            .feature-icon-simple {
+                font-size: 24px;
+            }
+
+            .feature-content-simple h3 {
+                font-size: 20px;
+            }
+
+            .feature-content-simple p {
+                font-size: 15px;
+            }
+
+            .vertical-tabs-wrapper {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .vertical-tabs-nav {
+                flex-direction: row;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .vertical-tab-button {
+                white-space: nowrap;
+            }
+
+            .river-item {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .river-item.reverse {
+                direction: ltr;
+            }
+
+            .river-content h2 {
+                font-size: 32px;
+            }
+
+            .river-visual {
+                min-height: 300px;
+                padding: 32px;
+            }
+
+            .stats-bar {
+                gap: 40px;
+                padding: 32px 24px;
+            }
+
+            .stat-value {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">RadSOC</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#platform">Platform</a></li>
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#devices">Devices</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><button class="btn-header">Get Started</button></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>The security operations<br>platform that scales</h1>
+            <p class="hero-description">RadSOC unifies your physical security infrastructure into a single command center. Monitor, detect, and respond to threats across cameras, access control, and sensors—from one intelligent platform.</p>
+            <div class="hero-buttons">
+                <a href="#get-started" class="btn btn-primary">Start free trial</a>
+                <a href="#demo" class="btn btn-secondary">Schedule demo</a>
+            </div>
+        </section>
+
+        <section class="stats-bar">
+            <div class="stat">
+                <span class="stat-value">100K+</span>
+                <span class="stat-label">Devices monitored</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">99.9%</span>
+                <span class="stat-label">Uptime SLA</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">&lt;10ms</span>
+                <span class="stat-label">Alert latency</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">24/7</span>
+                <span class="stat-label">Support included</span>
+            </div>
+        </section>
+
+        <section class="vertical-tabs-section">
+            <div class="vertical-tabs-intro">
+                <div class="section-label">How it works</div>
+                <h2 class="section-heading">Security operations that just work</h2>
+                <p class="section-description">Four core capabilities that transform how you protect your infrastructure</p>
+            </div>
+
+            <div class="vertical-tabs-wrapper">
+                <nav class="vertical-tabs-nav">
+                    <button class="vertical-tab-button active" data-tab="monitor">Monitor</button>
+                    <button class="vertical-tab-button" data-tab="detect">Detect</button>
+                    <button class="vertical-tab-button" data-tab="respond">Respond</button>
+                    <button class="vertical-tab-button" data-tab="analyze">Analyze</button>
+                </nav>
+
+                <div class="vertical-tabs-content">
+                    <div class="vertical-tab-panel active" id="monitor">
+                        <div class="river-item">
+                            <div class="river-content">
+                                <h3>Monitor</h3>
+                                <h2>See everything, miss nothing</h2>
+                                <p>Real-time visibility across your entire security infrastructure. Track device health, network status, and performance metrics in a unified dashboard that updates every second.</p>
+                                <ul class="feature-list" style="margin-left: 0;">
+                                    <li>Live status for 1000+ devices simultaneously</li>
+                                    <li>Automated health checks with predictive maintenance</li>
+                                    <li>Network topology mapping and connectivity tracking</li>
+                                    <li>Custom performance thresholds and instant alerts</li>
+                                </ul>
+                                <a href="#" class="btn btn-primary" style="margin-top: 24px;">Watch live demo →</a>
+                            </div>
+                            <div class="river-visual">
+                                <p style="font-size: 18px;">Real-time Monitoring Dashboard</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vertical-tab-panel" id="detect">
+                        <div class="river-item reverse">
+                            <div class="river-content">
+                                <h3>Detect</h3>
+                                <h2>Threats detected before they escalate</h2>
+                                <p>AI-powered detection that learns your environment. Reduce false positives by 95% while catching real threats faster with behavioral analysis and smart correlation.</p>
+                                <ul class="feature-list" style="margin-left: 0;">
+                                    <li>Machine learning models trained on your baseline</li>
+                                    <li>Behavioral pattern recognition across device types</li>
+                                    <li>Multi-sensor correlation for verified incidents</li>
+                                    <li>Automatic threat classification and severity scoring</li>
+                                </ul>
+                                <a href="#" class="btn btn-primary" style="margin-top: 24px;">See how AI works →</a>
+                            </div>
+                            <div class="river-visual">
+                                <p style="font-size: 18px;">Threat Detection Engine</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vertical-tab-panel" id="respond">
+                        <div class="river-item">
+                            <div class="river-content">
+                                <h3>Respond</h3>
+                                <h2>Response time: milliseconds</h2>
+                                <p>Automated playbooks that react faster than any human team. Lock doors, trigger alarms, and notify personnel instantly when threats are detected—no manual intervention required.</p>
+                                <ul class="feature-list" style="margin-left: 0;">
+                                    <li>50+ pre-configured response playbooks ready to deploy</li>
+                                    <li>Visual workflow builder for custom automation chains</li>
+                                    <li>Multi-device orchestration across your infrastructure</li>
+                                    <li>Smart escalation with on-call scheduling integration</li>
+                                </ul>
+                                <a href="#" class="btn btn-primary" style="margin-top: 24px;">Build your playbook →</a>
+                            </div>
+                            <div class="river-visual">
+                                <p style="font-size: 18px;">Automated Response Workflows</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="vertical-tab-panel" id="analyze">
+                        <div class="river-item reverse">
+                            <div class="river-content">
+                                <h3>Analyze</h3>
+                                <h2>Data that drives decisions</h2>
+                                <p>Turn security data into strategic insights. Identify patterns, optimize resource allocation, and prove compliance with comprehensive analytics and one-click reports.</p>
+                                <ul class="feature-list" style="margin-left: 0;">
+                                    <li>Drag-and-drop dashboard builder with 100+ widgets</li>
+                                    <li>Historical analysis with unlimited data retention</li>
+                                    <li>SOC 2, HIPAA, and PCI compliance report templates</li>
+                                    <li>Scheduled exports to PDF, Excel, or direct to stakeholders</li>
+                                </ul>
+                                <a href="#" class="btn btn-primary" style="margin-top: 24px;">Explore dashboards →</a>
+                            </div>
+                            <div class="river-visual">
+                                <p style="font-size: 18px;">Analytics & Reporting</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="features">
+            <div class="section-intro">
+                <div class="section-label">Platform</div>
+                <h2 class="section-heading">Built for security teams that need results</h2>
+                <p class="section-description">Everything you need to monitor, detect, and respond to threats across your physical security infrastructure</p>
+            </div>
+
+            <div class="features-list">
+                <div class="feature-row">
+                    <div class="feature-icon-simple">📹</div>
+                    <div class="feature-content-simple">
+                        <h3>Unified Device Management</h3>
+                        <p>Stop switching between vendor dashboards. Control cameras, access systems, and sensors from one interface. Get instant status updates, push firmware remotely, and manage 1000+ devices as easily as 10.</p>
+                    </div>
+                </div>
+
+                <div class="feature-row">
+                    <div class="feature-icon-simple">🔔</div>
+                    <div class="feature-content-simple">
+                        <h3>Intelligent Alerting</h3>
+                        <p>Cut alert noise by 95%. AI-powered correlation connects related events across devices so you see incidents, not individual alerts. Customizable rules adapt to your environment and send notifications where your team already works.</p>
+                    </div>
+                </div>
+
+                <div class="feature-row">
+                    <div class="feature-icon-simple">📊</div>
+                    <div class="feature-content-simple">
+                        <h3>Real-Time Analytics</h3>
+                        <p>Transform raw security data into strategic insights. Build custom dashboards in minutes, analyze historical patterns to prevent future incidents, and generate compliance reports for auditors in one click.</p>
+                    </div>
+                </div>
+
+                <div class="feature-row">
+                    <div class="feature-icon-simple">⚡</div>
+                    <div class="feature-content-simple">
+                        <h3>Automated Response</h3>
+                        <p>React in milliseconds, not minutes. When a threat is detected, playbooks automatically lock doors, trigger alarms, and alert the right people. No manual steps, no delays, no missed incidents.</p>
+                    </div>
+                </div>
+
+                <div class="feature-row">
+                    <div class="feature-icon-simple">🔐</div>
+                    <div class="feature-content-simple">
+                        <h3>Access Control Integration</h3>
+                        <p>Connect badge readers, door controllers, and visitor systems into your security operations. Track who accessed what and when with comprehensive audit trails that satisfy any compliance requirement.</p>
+                    </div>
+                </div>
+
+                <div class="feature-row">
+                    <div class="feature-icon-simple">🌐</div>
+                    <div class="feature-content-simple">
+                        <h3>Deploy Your Way</h3>
+                        <p>Cloud, on-premise, or hybrid—you choose. Meet your compliance requirements without compromising on features. Full platform capabilities regardless of how you deploy.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="devices" class="breakout">
+            <div class="breakout-container">
+                <div class="breakout-content">
+                    <div class="section-label">Integrations</div>
+                    <h2>Works with what you already have</h2>
+                    <p>Don't rip and replace. RadSOC integrates with leading security hardware from day one. Connect existing devices to our platform and start monitoring in hours, not months.</p>
+                    <ul class="feature-list" style="margin-left: 0;">
+                        <li>IP cameras and NVRs from Axis, Hikvision, Dahua, Hanwha</li>
+                        <li>Access control from HID, Lenel, Software House, Genetec</li>
+                        <li>Intrusion detection from Bosch, Honeywell, DSC</li>
+                        <li>Environmental sensors for temperature, humidity, flooding</li>
+                        <li>Emergency systems including mass notification</li>
+                        <li>License plate recognition (LPR) and vehicle tracking</li>
+                    </ul>
+                </div>
+                <div class="breakout-image">
+                    <p style="font-size: 18px;">Device Integration Diagram</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="breakout" style="background: var(--color-canvas-default); border: none;">
+            <div class="breakout-container" style="flex-direction: row-reverse;">
+                <div class="breakout-content">
+                    <div class="section-label">Scale</div>
+                    <h2>From 10 devices to 10,000</h2>
+                    <p>Start small, grow without limits. RadSOC scales with your infrastructure—same features, same performance, whether you're protecting a single building or a global enterprise.</p>
+                    <a href="#" class="btn btn-primary">View pricing →</a>
+                </div>
+                <div class="breakout-image">
+                    <p style="font-size: 18px;">Live Dashboard Preview</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="get-started" class="cta">
+            <h2>Ready to unify your security operations?</h2>
+            <p>Join security teams at Fortune 500 companies and growing enterprises who trust RadSOC to protect what matters most</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary">Start free trial</a>
+                <a href="#" class="btn btn-secondary">Talk to sales</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo">RadSOC</div>
+                <p>Unified security operations platform for physical security devices</p>
+            </div>
+            <div class="footer-column">
+                <h4>Platform</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Features</a></li>
+                    <li><a href="#">Devices</a></li>
+                    <li><a href="#">Integrations</a></li>
+                    <li><a href="#">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Status</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Company</h4>
+                <ul class="footer-links">
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 RadSOC. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Vertical tabs functionality
+        const verticalTabButtons = document.querySelectorAll('.vertical-tab-button');
+        const verticalTabPanels = document.querySelectorAll('.vertical-tab-panel');
+
+        verticalTabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetTab = button.dataset.tab;
+
+                // Remove active class from all buttons and panels
+                verticalTabButtons.forEach(btn => btn.classList.remove('active'));
+                verticalTabPanels.forEach(panel => panel.classList.remove('active'));
+
+                // Add active class to clicked button and corresponding panel
+                button.classList.add('active');
+                document.getElementById(targetTab).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
